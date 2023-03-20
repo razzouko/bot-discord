@@ -5,7 +5,7 @@ const https = require('https');
 const client = new language.LanguageServiceClient();
 
 
-function getSentiment() {
+function getSentiment(msg) {
 
     console.log("eiii")
 
@@ -23,46 +23,40 @@ function getSentiment() {
 
     const negativeDocument = {
         type: 'PLAIN_TEXT',
-        content: negativeText,
+        content: msg,
     };
 
     (async () => {
-        const positiveResults = await client.analyzeSentiment({ document: positiveDocument });
-        const negativeResults = await client.analyzeSentiment({ document: negativeDocument });
-        console.log(positiveResults);
-        console.log(negativeResults);
+        //const positiveResults = await client.analyzeSentiment({ document: positiveDocument });
+        const Results = await client.analyzeSentiment({ document: negativeDocument });
+        //console.log(positiveResults);
+        console.log(Results);
       })();
 
 }
 
-function getEntities(){
+function getEntities(message){
 
     console.log("entities")
 
-    let text = "yes, yesterday barcelona played against madrid";
 
     let document = {
         type : "PLAIN_TEXT",
-        language : "en",
-        referenceWebUri : "",
-        boilerplateHandling : "BOILERPLATE_HANDLING_UNSPECIFIED",
-        content: text,
+        language : "es",
+        content: message,
     };
 
     (async () => {
-        const results = await client.analyzeEntities({document : document , encodingType : "UTF-8"});
+        const [results] = await client.analyzeEntitySentiment({document : document , encodingType : "UTF-8"});
         
-        let entitat1={
-            nom : results[0].entities[0].name,
-            tipus : results[0].entities[0].type,
-            importancia : results[0].entities[0].salience
-        };
+        results.entities.forEach(entity => {
+            console.log(`  Name: ${entity.name}`);
+            console.log(`  Type: ${entity.type}`);
+            console.log(`  Score: ${entity.sentiment.score}`);
+            console.log(`  Magnitude: ${entity.sentiment.magnitude}`);
+          });
 
-        console.log(entitat1)
       })();
-
-
-
 
 }
 

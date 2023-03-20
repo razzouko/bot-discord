@@ -16,8 +16,8 @@ function obtenirNotices(entitats) {
 
     }
 
-    console.log(query)
-    /*https.get("https://newsdata.io/api/1/news?apikey=pub_186075b5c641568c9f5bc50c66e03c39ed0e8&language=es&q=" + query,
+
+    https.get("https://newsdata.io/api/1/news?apikey=pub_186075b5c641568c9f5bc50c66e03c39ed0e8&language=es&q=" + query,
      (res) =>{
 
         let results = "";
@@ -30,7 +30,7 @@ function obtenirNotices(entitats) {
             console.log(results)
         } )
 
-    })*/
+    })
 
 }
 
