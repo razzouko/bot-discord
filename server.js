@@ -1,4 +1,5 @@
 require('dotenv').config();
+const apiNews = require('./apis/apiNews.js')
 const { Client, GatewayIntentBits, ChannelType, Events, GuildChannelManager } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -8,15 +9,8 @@ client.on(Events.ClientReady, () => {
 })
 
 client.on(Events.MessageCreate, (msg) => {
-
-  if (msg.content === "hola") {
-    msg.reply("holaaaaas")
-  }else if(msg.content === "nou canal"){
-    msg.guild.channels.create(
-      {type: ChannelType.GUILD_TEXT,
-      name : "canal prova", });
-  }
+      apiNews.obtenirNotices()
 })
 
 console.log("arriba")
-client.login(process.env.token)
+client.login(process.env.tokenDiscord)
