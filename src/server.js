@@ -17,7 +17,7 @@ carregarComandes();
 
 var descansant = false;
 var desactivat = false;
-var interval = 5000;
+var interval = 100000;
 // definir interval 
 setInterval(()=>{
   if(descansant){
