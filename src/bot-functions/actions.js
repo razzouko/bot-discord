@@ -5,6 +5,12 @@ const apiNews = require('../apis/apiNews.js')
 const apiGoogle = require('../apis/apiGoogleLanguage.js')
 
 function crearEmbed(noticia) {
+
+    // afegit 
+    if(noticia.description.length > 150){
+        noticia.description = noticia.description.substring(0, 150) + "...";
+    }
+
     const embed = new EmbedBuilder()
         .setTitle(noticia.title)
         .setDescription(noticia.description)
@@ -16,6 +22,8 @@ function crearEmbed(noticia) {
 }
 
 function getNoticies(msg , cb){
+
+
     let entitats = apiGoogle.getEntities(msg);
     if(entitats == null) cb(null , null);
   entitats.then((entitats) => {

@@ -4,6 +4,7 @@ const URL = require('url').URL;
 
 async function obtenirNoticies(entitats, cb) {
 
+
     if(entitats == null){
      cb(null);
      return;
@@ -39,8 +40,7 @@ async function obtenirNoticies(entitats, cb) {
                     let noticiesFinals = [];
                     while (!final && i < resultat.length) {
                         let url = resultat[i].image_url;
-                        if (url != null && stringIsAValidUrl(url) && resultat[i].description.length < 250) {
-                            console.log(resultat[i].image_url)
+                        if (url != null && stringIsAValidUrl(url)) {
                             noticiesFinals.push(resultat[i]);
                         }
                         if (noticiesFinals.length == 3) {

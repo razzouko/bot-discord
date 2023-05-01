@@ -13,6 +13,8 @@ async function getSentiment(msg) {
 }
 
 async function getEntities(message){
+
+
     let document = {
         type : "PLAIN_TEXT",
         language : "es",
@@ -29,7 +31,9 @@ async function getEntities(message){
                 }
             });
 
-        if(entitats.length == 0) return null;
+        if(entitats.length == 0) {
+            return null;
+        }
         
         return entitats;
 

@@ -19,13 +19,15 @@ var descansant = false;
 var desactivat = false;
 var interval = 100000;
 // definir interval 
-setInterval(()=>{
-  if(descansant){
-    descansant = false;
-  }else{
-    descansant = true;
-  }
-} , interval)
+function setIntervalo(ms){
+  setInterval(()=>{
+    if(descansant){
+      descansant = false;
+    }else{
+      descansant = true;
+    }
+  } , ms)
+}
 
 
 client.on(Events.ClientReady, () => {
@@ -39,10 +41,13 @@ client.on(Events.MessageCreate, msg => {
   if  (descansant) return; // el bot descansa pero després de l'interbal torna a treballar
   if (msg.author.bot) return;
   
+
+
   getNoticies(msg.content, (noticiesFinals, entitats) => {
     if (noticiesFinals != null && noticiesFinals.length != 0) {
       msg.channel.send("Noticies relacionades amb " + entitats);
       noticiesFinals.forEach(noticia => {
+        console.log(noticia)
         msg.channel.send({ embeds: [crearEmbed(noticia)] })
       });
     }
@@ -75,6 +80,7 @@ client.on(Events.InteractionCreate, async interaction => {
   if(interaction.options.getString('milisegons') != null){
     interval = parseInt(interaction.options.getString('milisegons'))
     interaction.reply("Interval actualitzat a " + interval + " milisegons")
+    setIntervalo(interval)
     return;
   }
 
